@@ -20,6 +20,18 @@
       iframe.setAttribute("src", src);
 
       if (/youtube\.com\/embed\//.test(src)) {
+        if (/^https?:\/\//.test(window.location.origin)) {
+          try {
+            var youtubeUrl = new URL(src, window.location.href);
+            if (!youtubeUrl.searchParams.has("origin")) {
+              youtubeUrl.searchParams.set("origin", window.location.origin);
+              src = youtubeUrl.toString();
+              iframe.setAttribute("src", src);
+            }
+          } catch (error) {
+            console.warn("Could not add YouTube origin parameter", error);
+          }
+        }
         iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
         iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
         iframe.setAttribute("allowfullscreen", "");
