@@ -1,0 +1,397 @@
+/* Static-host migration helpers for the Weebly export. */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #1c1c1c;
+  overflow-x: hidden;
+}
+
+body .footer-wrap {
+  border-top: 0 !important;
+}
+
+body .wrapper,
+body .wsite-section-wrap,
+body .wsite-section,
+body .wsite-section-content,
+body .main-wrap > .container,
+body .footer-wrap > .container {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+img,
+iframe {
+  max-width: 100%;
+}
+
+.wsite-multicol-table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.wsite-multicol-col {
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+.wsite-youtube-wrapper,
+.wsite-youtube-container,
+.embed-container {
+  max-width: 100%;
+}
+
+.wsite-youtube-container {
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+}
+
+.wsite-youtube-container iframe {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.wcustomhtml div[style*="padding:56.25%"] > iframe,
+.wcustomhtml div[style*="position:relative"] > iframe[src*="youtube"],
+.wcustomhtml .embed-container > iframe[src*="youtube"] {
+  height: 100% !important;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100% !important;
+}
+
+.wcustomhtml iframe[src*="youtube"],
+.wcustomhtml iframe[src*="vimeo"],
+.wcustomhtml iframe[src*="facebook"],
+.wcustomhtml iframe[src*="instagram"] {
+  max-width: 100%;
+}
+
+.wcustomhtml iframe[src*="instagram"],
+.instagram-media {
+  min-height: 430px !important;
+}
+
+.wsite-section,
+.wsite-header-section {
+  position: relative;
+}
+
+.wsite-section-content,
+.wsite-section-elements,
+.wcustomhtml {
+  position: relative;
+  z-index: 1;
+}
+
+.wsite-elements:after,
+.imageGallery:after,
+.wsite-multicol:after {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+.wsite-youtube,
+.wsite-video {
+  margin: 20px auto;
+  max-width: 100%;
+}
+
+.wsite-youtube iframe,
+.wsite-video iframe,
+.wcustomhtml iframe {
+  max-width: 100%;
+}
+
+.wsite-social {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.wsite-social-item {
+  align-items: center;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  display: inline-flex;
+  font-size: 12px;
+  height: 30px;
+  justify-content: center;
+  min-width: 30px;
+  opacity: .85;
+  padding: 0 9px;
+  text-transform: uppercase;
+}
+
+.wsite-social-item:hover {
+  opacity: 1;
+}
+
+.wsite-social-item-inner {
+  display: none;
+}
+
+.wsite-social-facebook:after { content: "FB"; }
+.wsite-social-instagram:after { content: "IG"; }
+.wsite-social-flickr:after { content: "Flickr"; }
+.wsite-social-youtube:after { content: "YT"; }
+.wsite-social-vimeo:after { content: "Vimeo"; }
+.wsite-social-linkedin:after { content: "in"; }
+.wsite-social-mail:after { content: "Mail"; }
+
+.footer-wrap .footer {
+  display: none;
+}
+
+.static-slideshow {
+  background: #111;
+  color: #fff;
+  margin: 20px auto;
+  max-width: 100%;
+  position: relative;
+}
+
+.static-slideshow-stage {
+  align-items: center;
+  aspect-ratio: 3 / 2;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.static-slideshow-stage img {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.static-slideshow-caption {
+  background: rgba(0, 0, 0, .58);
+  bottom: 0;
+  box-sizing: border-box;
+  color: #fff;
+  font-size: 14px;
+  left: 0;
+  line-height: 1.5;
+  padding: 8px 12px;
+  position: absolute;
+  right: 0;
+}
+
+.static-slideshow-button {
+  align-items: center;
+  background: rgba(0, 0, 0, .45);
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  font-size: 34px;
+  height: 52px;
+  justify-content: center;
+  margin-top: -26px;
+  position: absolute;
+  top: 50%;
+  width: 44px;
+  z-index: 2;
+}
+
+.static-slideshow-button:hover {
+  background: rgba(0, 0, 0, .7);
+}
+
+.static-slideshow-prev {
+  left: 0;
+}
+
+.static-slideshow-next {
+  right: 0;
+}
+
+.static-slideshow-thumbs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 8px;
+}
+
+.static-slideshow-thumb {
+  background: transparent;
+  border: 2px solid transparent;
+  cursor: pointer;
+  flex: 0 0 72px;
+  height: 48px;
+  opacity: .65;
+  padding: 0;
+}
+
+.static-slideshow-thumb.is-active {
+  border-color: #fff;
+  opacity: 1;
+}
+
+.static-slideshow-thumb img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.static-lightbox {
+  align-items: center;
+  background: rgba(0, 0, 0, .88);
+  bottom: 0;
+  display: none;
+  justify-content: center;
+  left: 0;
+  padding: 24px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+}
+
+.static-lightbox.is-open {
+  display: flex;
+}
+
+.static-lightbox img {
+  max-height: 88vh;
+  max-width: 92vw;
+  object-fit: contain;
+}
+
+.static-lightbox button {
+  background: transparent;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  font-size: 42px;
+  position: absolute;
+  right: 18px;
+  top: 10px;
+}
+
+.wsite-page-index .wsite-background-3,
+.wsite-page-index .wsite-background-24 {
+  height: auto !important;
+  min-height: 0;
+}
+
+.wsite-page-index .wsite-background-3 .wsite-section-content,
+.wsite-page-index .wsite-background-24 .wsite-section-content {
+  padding-bottom: 64px;
+  padding-top: 64px;
+}
+
+.wsite-page-index .wsite-background-3 .paragraph,
+.wsite-page-index .wsite-background-3 li,
+.wsite-page-index .wsite-background-3 font,
+.wsite-page-index .wsite-background-24 .paragraph,
+.wsite-page-index .wsite-background-24 li,
+.wsite-page-index .wsite-background-24 font {
+  color: #f2f2f2 !important;
+}
+
+.wsite-page-index .wsite-background-3 ul {
+  margin-left: 1.2em;
+}
+
+.wsite-page-index .wsite-background-3 li {
+  margin-bottom: 10px;
+}
+
+.wsite-page-about,
+.wsite-page-about .main-wrap,
+.wsite-page-about .wsite-background-19,
+.wsite-page-about .footer-wrap {
+  background: #101010 !important;
+}
+
+.wsite-page-about .wsite-background-19 {
+  display: none !important;
+}
+
+.wsite-page-photography,
+.wsite-page-photography .main-wrap,
+.wsite-page-photography .footer-wrap {
+  background: #1f1e1e !important;
+}
+
+.wsite-page-film,
+.wsite-page-film .main-wrap,
+.wsite-page-film .footer-wrap,
+.wsite-page-mv,
+.wsite-page-mv .main-wrap,
+.wsite-page-mv .footer-wrap {
+  background: #080402 !important;
+}
+
+.wsite-page-commercial,
+.wsite-page-commercial .main-wrap,
+.wsite-page-commercial .footer-wrap {
+  background: #303030 !important;
+}
+
+.wsite-page-aerialphtography,
+.wsite-page-aerialphtography .main-wrap,
+.wsite-page-aerialphtography .footer-wrap {
+  background: #1f1f1f !important;
+}
+
+.wsite-page-wedding,
+.wsite-page-wedding .main-wrap,
+.wsite-page-wedding .footer-wrap,
+.wsite-page-index,
+.wsite-page-index .main-wrap,
+.wsite-page-index .footer-wrap {
+  background: #1c1c1c !important;
+}
+
+.wsite-page-cmfoto,
+.wsite-page-cmfoto .main-wrap,
+.wsite-page-cmfoto .footer-wrap {
+  background: #0d0c0c !important;
+}
+
+@media screen and (max-width: 767px) {
+  .wsite-multicol-table,
+  .wsite-multicol-tbody,
+  .wsite-multicol-tr,
+  .wsite-multicol-col {
+    display: block;
+    width: 100% !important;
+  }
+
+  .wsite-multicol-col {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .imageGallery > div {
+    width: 50% !important;
+  }
+
+  .wsite-elements.wsite-not-footer:not(.wsite-header-elements) h2,
+  #wsite-content h2 {
+    font-size: 36px !important;
+    line-height: 1.15 !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .imageGallery > div {
+    width: 100% !important;
+  }
+}
