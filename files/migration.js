@@ -224,6 +224,54 @@
     });
   }
 
+  function setupCooperationCloud() {
+    document.querySelectorAll(".cooperation-cloud").forEach(function (cloud) {
+      var items = Array.prototype.slice.call(cloud.querySelectorAll(".cooperation-cloud-item"));
+      if (!items.length) {
+        return;
+      }
+
+      items.forEach(function (item, index) {
+        var weight = Number(item.dataset.weight || 1);
+        var depth = Number(item.dataset.depth || 0);
+        var driftX = ((index % 6) - 2.5) * 1.6;
+        var driftY = (((index * 3) % 7) - 3) * 1.3;
+        item.style.setProperty("--cloud-weight", weight);
+        item.style.setProperty("--cloud-depth", depth);
+        item.style.setProperty("--cloud-drift-x", driftX + "px");
+        item.style.setProperty("--cloud-drift-y", driftY + "px");
+      });
+
+      function move(event) {
+        var rect = cloud.getBoundingClientRect();
+        var x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+        var y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+
+        items.forEach(function (item, index) {
+          var weight = Number(item.dataset.weight || 1);
+          var depth = Number(item.dataset.depth || 0);
+          var direction = index % 2 === 0 ? 1 : -1;
+          var reach = 8 + weight * 4 + Math.abs(depth) * 2;
+          var shiftX = x * reach * direction;
+          var shiftY = y * (reach * 0.62) * (depth >= 0 ? 1 : -1);
+          item.style.setProperty("--cloud-x", shiftX.toFixed(2) + "px");
+          item.style.setProperty("--cloud-y", shiftY.toFixed(2) + "px");
+        });
+      }
+
+      function reset() {
+        items.forEach(function (item) {
+          item.style.setProperty("--cloud-x", "0px");
+          item.style.setProperty("--cloud-y", "0px");
+        });
+      }
+
+      cloud.addEventListener("pointermove", move);
+      cloud.addEventListener("pointerleave", reset);
+      reset();
+    });
+  }
+
   function ready(fn) {
     if (document.readyState !== "loading") {
       fn();
@@ -246,10 +294,41 @@
       }
     });
 
-    document.querySelectorAll("label.hamburger").forEach(function (button) {
-      button.addEventListener("click", function () {
-        document.body.classList.toggle("nav-open");
+    function closeMobileNav() {
+      document.body.classList.remove("nav-open");
+      document.querySelectorAll("label.hamburger").forEach(function (button) {
+        button.setAttribute("aria-expanded", "false");
       });
+    }
+
+    function toggleMobileNav(event) {
+      event.preventDefault();
+      var isOpen = document.body.classList.toggle("nav-open");
+      document.querySelectorAll("label.hamburger").forEach(function (button) {
+        button.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+    }
+
+    document.querySelectorAll("label.hamburger").forEach(function (button) {
+      button.setAttribute("role", "button");
+      button.setAttribute("aria-label", "Toggle navigation");
+      button.setAttribute("aria-expanded", document.body.classList.contains("nav-open") ? "true" : "false");
+      button.addEventListener("click", toggleMobileNav);
+      button.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+          toggleMobileNav(event);
+        }
+      });
+    });
+
+    document.querySelectorAll(".mobile-nav a").forEach(function (link) {
+      link.addEventListener("click", closeMobileNav);
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeMobileNav();
+      }
     });
 
     document.querySelectorAll(".icon-caret").forEach(function (button) {
@@ -263,6 +342,7 @@
 
     renderInlineSlideshows();
     setupLightbox();
+    setupCooperationCloud();
   });
 })();
 
